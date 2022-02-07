@@ -8,7 +8,9 @@
   --accent: #fef3c7;
   --accent2: #eab308;
   --red: #fca5a5;
-  --red2: #dc2626;
+  --red2: #b91c1c;
+  --green: #bbf7d0;
+  --green2: #15803d;
   --serif: 'Roboto Slab';
   --sans-serif: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -159,4 +161,85 @@ button {
 .add-book:hover {
   border-color: var(--accent2);
   color: var(--accent2);
+}
+
+.modal {
+  visibility: hidden;
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #29252477;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  width: clamp(350px, 40%, 500px);
+  background-color: var(--gray2);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.add-form input {
+  background-color: var(--gray1);
+  border: solid 1px var(--gray3);
+  border-radius: 5px;
+  outline: 0;
+  font: inherit;
+  color: inherit;
+  padding: 0.4em 0.6em;
+}
+
+.add-form input:focus {
+  border-color: var(--accent2);
+}
+
+.add-form .buttons {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+  gap: 1rem;
+}
+
+.add-form button {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.7em 1em;
+  text-transform: uppercase;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 5px;
+}
+
+.form-add-book {
+  background-color: var(--green);
+  color: var(--green2);
+  border-color: var(--green2);
+}
+
+.close-modal {
+  background-color: var(--red);
+  color: var(--red2);
+  border-color: var(--red2);
 }
