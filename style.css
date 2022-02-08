@@ -79,7 +79,7 @@ button {
   background-color: var(--red);
   color: var(--red2);
   transform: scale(0);
-  transition: transform ease-in-out 150ms;
+  transition: transform ease-in 100ms;
 
   display: flex;
   justify-content: center;
@@ -97,10 +97,16 @@ button {
   justify-content: center;
   align-items: center;
   position: relative;
+  transition: transform ease-out 300ms;
 }
 
 .book:hover .remove-book {
   transform: scale(0.8);
+}
+
+.book:hover {
+  transform: translateY(-1%);
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
 }
 
 .book-info {
