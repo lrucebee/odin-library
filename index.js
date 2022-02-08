@@ -16,16 +16,13 @@ function addBookToLibrary(book) {
 }
 
 function showBooks() {
-  myLibrary.forEach((book) => {
-    const bookEl = document.createElement('div');
-    bookEl.classList.add('book');
-    bookEl.innerHTML = createBookMarkup(book);
+  resetLibrayDom();
 
+  myLibrary.forEach((book) => {
+    const bookEl = createBookElement(book);
     addButton.insertAdjacentElement('beforebegin', bookEl);
   });
 }
-
-function createBookElement(book) {}
 
 function showModal() {
   modal.style.visibility = 'visible';
@@ -51,18 +48,55 @@ function handleSubmit(e) {
 }
 
 function resetLibrayDom() {
-  books.forEach((book) => book.remove());
+  const bookElements = document.querySelectorAll('.book');
+  bookElements.forEach((book) => book.remove());
 }
 
-const createBookMarkup = (book) => `
-  <button class="remove-book">&times;</button>
-  <div class="book-info">
+function createBookElement(book) {
+  const bookEl = document.createElement('div');
+  bookEl.classList.add('book');
+
+  const removeBookBtn = createRemoveBtn();
+  const readBtn = createReadBtn(book.isRead);
+  const bookInfoDiv = document.createElement('div');
+  bookInfoDiv.classList.add('book-info');
+  bookInfoDiv.innerHTML = `
     <h3 class="book-title">${book.title}</h3>
     <p class="book-author">${book.author}</p>
     <p class="book-pages">${book.pages} pages</p>
-  </div>
-  <button class="book-read">${book.isRead ? 'Read' : 'Unread'}</button>
-`;
+  `;
+
+  bookEl.appendChild(removeBookBtn);
+  bookEl.appendChild(bookInfoDiv);
+  bookEl.appendChild(readBtn);
+
+  return bookEl;
+}
+
+function createRemoveBtn() {
+  const removeBookBtn = document.createElement('button');
+  removeBookBtn.textContent = '×';
+  removeBookBtn.classList.add('remove-book');
+  removeBookBtn.addEventListener('click', removeBook);
+
+  return removeBookBtn;
+}
+
+function removeBook() {
+  console.log('this');
+}
+
+function createReadBtn(isRead) {
+  const readBookBtn = document.createElement('button');
+  readBookBtn.classList.add('book-read');
+  readBookBtn.textContent = isRead ? 'Unread' : 'Read';
+
+  if (isRead) {
+    readBookBtn.classList.add('unread');
+  }
+
+  return readBookBtn;
+}
 
 const booksContainer = document.querySelector('.books');
 const books = document.querySelectorAll('.book');
@@ -79,3 +113,16 @@ window.addEventListener('click', (e) => {
   if (e.target !== modal) return;
   closeModal();
 });
+
+// Books for testing
+const book1 = new Book(
+  'The Hobbit, or There and Back Again',
+  'J.R.R. Tolkien',
+  366
+);
+const book2 = new Book('To Kill a Mockingbird', 'Harper Lee', 281);
+book2.read();
+
+addBookToLibrary(book1);
+addBookToLibrary(book2);
+showBooks();
