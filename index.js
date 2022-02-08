@@ -57,7 +57,7 @@ function createBookElement(book, i) {
   bookEl.classList.add('book');
 
   const removeBookBtn = createRemoveBtn(i);
-  const readBtn = createReadBtn(book.isRead);
+  const readBtn = createReadBtn(book.isRead, i);
   const bookInfoDiv = document.createElement('div');
   bookInfoDiv.classList.add('book-info');
   bookInfoDiv.innerHTML = `
@@ -90,16 +90,33 @@ function removeBook() {
   showBooks();
 }
 
-function createReadBtn(isRead) {
+function createReadBtn(isRead, key) {
   const readBookBtn = document.createElement('button');
   readBookBtn.classList.add('book-read');
-  readBookBtn.textContent = isRead ? 'Unread' : 'Read';
+  readBookBtn.setAttribute('data-key', key);
+  updateReadBtn(readBookBtn, isRead);
 
-  if (isRead) {
-    readBookBtn.classList.add('unread');
-  }
+  readBookBtn.addEventListener('click', toggleRead);
 
   return readBookBtn;
+}
+
+function toggleRead() {
+  const key = +this.dataset.key;
+  const selectedBook = myLibrary[key];
+
+  selectedBook.read();
+  updateReadBtn(this, selectedBook.isRead);
+}
+
+function updateReadBtn(btn, isRead) {
+  if (isRead) {
+    btn.textContent = 'Unread';
+    btn.classList.add('unread');
+  } else {
+    btn.textContent = 'Read';
+    btn.classList.remove('unread');
+  }
 }
 
 const booksContainer = document.querySelector('.books');
