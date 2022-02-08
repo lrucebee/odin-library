@@ -78,19 +78,13 @@ button {
   border-radius: 50%;
   background-color: var(--red);
   color: var(--red2);
+  transform: scale(0);
+  transition: transform ease-in-out 150ms;
 
   display: flex;
   justify-content: center;
   align-items: center;
-
-  visibility: hidden;
 }
-
-/* .remove-book > .line {
-  background-color: var(--red2);
-  height: 3px;
-  width: 40%;
-} */
 
 .book {
   background-color: var(--gray2);
@@ -106,7 +100,7 @@ button {
 }
 
 .book:hover .remove-book {
-  visibility: visible;
+  transform: scale(0.8);
 }
 
 .book-info {

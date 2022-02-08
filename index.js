@@ -18,8 +18,8 @@ function addBookToLibrary(book) {
 function showBooks() {
   resetLibrayDom();
 
-  myLibrary.forEach((book) => {
-    const bookEl = createBookElement(book);
+  myLibrary.forEach((book, i) => {
+    const bookEl = createBookElement(book, i);
     addButton.insertAdjacentElement('beforebegin', bookEl);
   });
 }
@@ -52,11 +52,11 @@ function resetLibrayDom() {
   bookElements.forEach((book) => book.remove());
 }
 
-function createBookElement(book) {
+function createBookElement(book, i) {
   const bookEl = document.createElement('div');
   bookEl.classList.add('book');
 
-  const removeBookBtn = createRemoveBtn();
+  const removeBookBtn = createRemoveBtn(i);
   const readBtn = createReadBtn(book.isRead);
   const bookInfoDiv = document.createElement('div');
   bookInfoDiv.classList.add('book-info');
@@ -73,17 +73,21 @@ function createBookElement(book) {
   return bookEl;
 }
 
-function createRemoveBtn() {
+function createRemoveBtn(key) {
   const removeBookBtn = document.createElement('button');
-  removeBookBtn.textContent = '×';
+  removeBookBtn.setAttribute('data-key', key);
   removeBookBtn.classList.add('remove-book');
+  removeBookBtn.textContent = '×';
   removeBookBtn.addEventListener('click', removeBook);
 
   return removeBookBtn;
 }
 
 function removeBook() {
-  console.log('this');
+  const { key } = this.dataset;
+
+  myLibrary = myLibrary.filter((_, i) => +key !== i);
+  showBooks();
 }
 
 function createReadBtn(isRead) {
