@@ -77,7 +77,13 @@ function createRemoveBtn(key) {
   const removeBookBtn = document.createElement('button');
   removeBookBtn.setAttribute('data-key', key);
   removeBookBtn.classList.add('remove-book');
-  removeBookBtn.textContent = '×';
+
+  const removeIcon = document.createElement('span');
+  removeIcon.classList.add('material-icons-outlined');
+  removeIcon.textContent = 'close';
+
+  removeBookBtn.appendChild(removeIcon);
+
   removeBookBtn.addEventListener('click', removeBook);
 
   return removeBookBtn;
